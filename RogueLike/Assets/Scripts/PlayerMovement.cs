@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float speedMove = 0f;
-    private Vector2 movement;
-    private Rigidbody2D rb;
+    Rigidbody2D rb;
+    [HideInInspector]
+    public float lastHorizontalVector;
+    [HideInInspector]
+    public float lastVerticalVector;
+    [HideInInspector]
+    public Vector2 movement;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +37,16 @@ public class NewBehaviourScript : MonoBehaviour
         float moveX = Input.GetAxisRaw("Vertical");
 
         movement = new Vector2(moveY, moveX).normalized;
+
+        if (movement.x != 0)
+        {
+            lastHorizontalVector = movement.x;
+        }
+
+        if (movement.y != 0)
+        {
+            lastVerticalVector = movement.y;
+        }
     }
 
     void Move()
